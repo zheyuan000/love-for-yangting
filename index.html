@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>给杨婷的网页</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="click.js" defer></script>
+  <style>
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .typewriter-text {
+      display: inline-block;
+      overflow: hidden;
+      border-right: .15em solid white;
+      white-space: nowrap;
+      animation:
+        typing 4s steps(30, end),
+        blink-caret .75s step-end infinite;
+      font-size: 18px;
+      margin: 20px;
+      max-width: 600px;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: white; }
+    }
+
+    .message-box {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+      width: 90%;
+      max-width: 500px;
+      backdrop-filter: blur(5px);
+    }
+
+    .message-box textarea {
+      width: 100%;
+      height: 100px;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      resize: none;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .message-box button {
+      margin-top: 10px;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks"></canvas>
+
+  <h1>致亲爱的杨婷</h1>
+
+  <img src="oo.jpg" alt="杨婷的照片" class="photo"/>
+
+  <p class="typewriter-text">
+    从我遇见你的那一刻起，我的世界因为你而变得温柔而闪亮。不论我们身在何处，我的心永远为你跳动。愿你每天都开心，被我宠爱，被爱包围。
+  </p>
+
+  <div class="heart"></div>
+
+  <audio controls autoplay loop>
+    <source src="bgm.ogg" type="audio/ogg">
+    你的浏览器不支持音乐播放。
+  </audio>
+
+  <div class="link-to-egg">
+    <a href="egg.html">点我一下，进入彩蛋世界 💫</a>
+  </div>
+
+  <div class="message-box">
+    <h3>💬 留言给哲元：</h3>
+    <textarea placeholder="写下你对我的话吧...（目前仅本地保存）"></textarea><br/>
+    <button onclick="alert('你的留言我已经收到啦~（目前尚未联网存储）')">发送</button>
+  </div>
+
+  <footer>网页由你最爱的人 💌 精心制作</footer>
+
+  <script>
+    // 烟花背景（简单版）
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    window.onresize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    };
+    const fireworks = [];
+    function createFirework() {
+      const x = Math.random() * w;
+      const y = Math.random() * h / 2;
+      const colors = ["#ff2d75", "#ffa600", "#00e0ff", "#fff", "#80ff72"];
+      for (let i = 0; i < 30; i++) {
+        fireworks.push({
+          x, y,
+          vx: Math.random() * 6 - 3,
+          vy: Math.random() * 6 - 3,
+          alpha: 1,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+    }
+    function animate() {
+      ctx.fillStyle = "rgba(0,0,0,0.2)";
+      ctx.fillRect(0, 0, w, h);
+      fireworks.forEach((f, i) => {
+        f.x += f.vx;
+        f.y += f.vy;
+        f.alpha -= 0.01;
+        ctx.globalAlpha = f.alpha;
+        ctx.fillStyle = f.color;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+        if (f.alpha <= 0) fireworks.splice(i, 1);
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animate);
+    }
+    setInterval(createFirework, 1000);
+    animate();
+  </script>
+</body>
+</html>
