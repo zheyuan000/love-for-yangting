@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>给杨婷的网页</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="click.js" defer></script>
+</head>
+<body>
+  <div class="stars"></div>
+  <h1>致亲爱的杨婷</h1>
+
+  <img src="oo.jpg" alt="杨婷的照片" class="photo"/>
+
+  <p class="blessing">
+    从 2024 年 3 月 15 日起，<br>
+    我的世界因为你而变得温柔而闪亮。<br>
+    不论我们身在何处，我的心永远为你跳动。<br>
+    愿你每天都开心，被我宠爱，被爱包围。
+  </p>
+
+  <div class="heart"></div>
+
+  <div class="date" id="days"></div>
+
+  <audio controls autoplay loop>
+    <source src="bgm.ogg" type="audio/ogg">
+    你的浏览器不支持音乐播放。
+  </audio>
+
+  <div class="link-to-egg">
+    <a href="egg.html">点我一下，进入彩蛋世界 💫</a>
+  </div>
+
+  <footer>网页由你最爱的人 💌 精心制作</footer>
+
+  <script>
+    const start = new Date("2024-03-15");
+    const today = new Date();
+    const days = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+    document.getElementById("days").innerText = `我们已经相恋 ${days} 天啦 ✨`;
+  </script>
+</body>
+</html>
